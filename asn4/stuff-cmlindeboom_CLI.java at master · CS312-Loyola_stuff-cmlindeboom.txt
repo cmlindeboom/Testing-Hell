@@ -1,0 +1,410 @@
+Skip to content
+
+<#start-of-content>
+
+<https://github.com/>
+This repository
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/blob/master/asn4/CLI.java>
+
+
+  * Pull requests
+
+    <https://github.com/pulls>
+  * Issues
+
+    <https://github.com/issues>
+  * Marketplace
+
+    <https://github.com/marketplace>
+  * Explore
+
+    <https://github.com/explore>
+
+  *
+  *
+
+        New repository
+
+        <https://github.com/new> Import repository
+
+        <https://github.com/new/import> New gist
+
+        <https://gist.github.com/> New organization
+
+        <https://github.com/organizations/new>
+        This repository
+        New issue
+
+        <https://github.com/CS312-Loyola/stuff-cmlindeboom/issues/new> 
+
+  *
+    @cmlindeboom
+
+      o Signed in as *cmlindeboom*
+      o
+      o Your profile
+
+        <https://github.com/cmlindeboom>
+      o Your stars
+
+        <https://github.com/cmlindeboom?tab=stars>
+      o Your Gists
+
+        <https://gist.github.com/>
+      o
+      o Help
+
+        <https://help.github.com/>
+      o Settings
+
+        <https://github.com/settings/profile>
+      o
+        Sign out
+
+Sign out
+
+  *
+    Watch
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/subscription> 1
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/watchers>
+
+    Notifications
+
+    Not watching Be notified when participating or @mentioned. Watch
+
+    Watching Be notified of all conversations. Unwatch
+
+    Ignoring Never be notified. Stop ignoring
+
+  *
+    Unstar
+
+    0
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/stargazers>
+    Star
+
+    0
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/stargazers>
+
+  * Fork
+
+    <#fork-destination-box>
+
+
+        Where should we fork this repository?
+
+    Loading
+
+    0
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/network>
+
+
+  CS312-Loyola <https://github.com/CS312-Loyola>/*stuff-cmlindeboom
+  <https://github.com/CS312-Loyola/stuff-cmlindeboom>* Private
+
+Code
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom> Issues 0
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/issues> Pull requests 0
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/pulls> Projects 0
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/projects> Wiki
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/wiki> Insights
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/pulse>
+
+Permalink
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/blob/51f40c9cbea8cf26ab6eb4a20316f07696c0d08c/asn4/CLI.java>
+
+/Branch:/ master
+
+Switch branches/tags
+
+  * Branches <#>
+  * Tags <#>
+
+master
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/blob/master/asn4/CLI.java>
+
+
+Create branch: from ‘master’
+Nothing to show
+Find file
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/find/master>
+Copy path
+
+stuff-cmlindeboom
+<https://github.com/CS312-Loyola/stuff-cmlindeboom>/asn4
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/tree/master/asn4>/*CLI.java*
+
+ed416d5
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/commit/ed416d506365a346dc66b1281772f920cbaee95f>
+14 days ago
+Dave Binkley a push
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/commit/ed416d506365a346dc66b1281772f920cbaee95f>
+
+*0* contributors
+
+
+    Users who have contributed to this file
+
+Raw
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/raw/master/asn4/CLI.java>
+Blame
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/blame/master/asn4/CLI.java>
+History
+
+<https://github.com/CS312-Loyola/stuff-cmlindeboom/commits/master/asn4/CLI.java>
+
+<x-github-client://openRepo/https://github.com/CS312-Loyola/stuff-cmlindeboom?branch=master&filepath=asn4%2FCLI.java>
+
+202 lines (172 sloc) 4.92 KB
+	package asn4;
+	
+	import java.io.BufferedReader;
+	import java.io.FileReader;
+	import java.io.InputStreamReader;
+	import java.io.InputStream;
+	import java.util.StringTokenizer;
+	
+	
+	public class CLI // the command line interface
+	{
+	public final static int CURRENT_YEAR = 2016;
+	private final int EXPECTED_ARGS = 6;
+	
+	
+	/*
+	   * purpose: print and error message and the the program's command line options
+	   * input:   a error message
+	   * result:  prints instructions to stdout
+	   */
+	private void usage(String msg)
+	{
+	System.err.println("\n" + msg + "\nUsage: java CLI [-d|-a|-s] <options>\n"
+	+ "there are three command line options\n"
+	+ "  (display) -d [(everything by default) | -t title | -a author ]\n"
+	+ "  (add)     -a DVD         \"title\" cost year   \"studio\" NEW|USED\n"
+	+ "  (add)     -a CD          \"title\" cost year   \"band\"   NEW|USED\n"
+	+ "  (add)     -a BOOK        \"title\" cost author  genre     NEW|USED\n"
+	+ "  (add)     -a AUDIOBOOK   \"title\" cost author \"reader\" NEW|USED\n"
+	+ "  (sell)    -s [-t title | -a author]");
+	}
+	
+	
+	/*
+	   * purpose: run the program
+	   * input:   command line options from the user
+	   * result:  the database of stuff read from stdin is updates and
+	              written to stdout
+	   */
+	public static void main(String [] args)
+	{
+	CLI cli = new CLI();
+	//Inventory inv = cli.readFile("testfile"); // for use with JUnit
+	Inventory inv = cli.readFile(System.in);
+	
+	cli.processCommand(args, inv);
+	}
+	
+	
+	/*
+	   * purpose: process the users command
+	   * input:   the command switch with arguments, and the current inventory
+	   * result:  inventory, inv is updates and written to stdout
+	   */
+	private void processCommand(String [] args, Inventory inv)
+	{
+	if (args.length == 0)
+	{
+	usage("");
+	return;
+	}
+	
+	if ("-d".equals(args[0]))
+	{
+	if (args.length == 1)
+	...
+	else if ("-t".equals(args[1]) && args.length == 3)
+	...
+	else if ("-a".equals(args[1]) && args.length == 3)
+	...
+	else
+	usage("Invalid display option");
+	}
+	else if ("-a".equals(args[0]))
+	{
+	...
+	}
+	else
+	{
+	usage("Bummer I don't know how to `" + args[0] + "'");
+	}
+	}
+	
+	
+	/*
+	   * purpose: create a new Item based on the mediaKind
+	   * input:   the new items data
+	   * result:  a new Item of the appropriate subclass
+	   */
+	private Item createItem(String title, String mediaKind, Double cost,
+	String authorOrYear, String property2,
+	Boolean isNew)
+	{
+	Item it = null;
+	int year = CURRENT_YEAR;
+	
+	...
+	
+	if (mediaKind.equals("AUDIOBOOK"))
+	it = new AudioBook(...
+	else if (mediaKind.equals("DVD"))
+	it = new DVD(...
+	else if (mediaKind.equals("BOOK"))
+	it = new Book(...
+	else if (mediaKind.equals("CD"))
+	it = new CD(...
+	else
+	System.err.println("I'll pretend i didn't see the media kind " + mediaKind);
+	
+	return it;
+	}
+	
+	
+	/*
+	   * purpose: create a new Item based on a database record (line from the file)
+	   * input:   a comma separated string
+	   * result:  a new Item of the appropriate subclass
+	   */
+	private Item parseItemString(String s)
+	{
+	StringTokenizer tok = new StringTokenizer(s, ";");
+	...
+	}
+	
+	
+	/*
+	   * purpose: read the inventory from a Java reader
+	   * input:   the reader
+	   * result:  returns the populated inventory
+	   */
+	private Inventory readFile(BufferedReader reader)
+	{
+	Inventory inv = new Inventory();
+	try
+	{
+	String line;
+	
+	for(line = reader.readLine(); line != null; line = reader.readLine())
+	{
+	if (line.length() == 0)
+	continue; // ignore blank lines
+	
+	Item it = parseItemString(line);
+	if (it != null)
+	inv.add(it);
+	else
+	System.err.println("Someone needs to take a look at this! " + line);
+	}
+	}
+	catch (Exception E)
+	{
+	System.err.println("ah sorry but " + E);
+	}
+	
+	return inv;
+	}
+	
+	
+	// an example of the wrapper pattern
+	// 'public' ... really only want to share with the testing code
+	/*
+	   * purpose: read the inventory from a disk file
+	   * input:   the file name, fileName
+	   * result:  returns the populated inventory
+	   */
+	public Inventory readFile(String fileName)
+	{
+	try
+	{
+	return readFile(new BufferedReader(new FileReader(fileName)));
+	}
+	catch (Exception E)
+	{
+	System.err.println("ah sorry but " + E);
+	}
+	
+	return null;
+	}
+	
+	
+	// an example of the wrapper pattern
+	// 'public' ... really only want to share with the testing code
+	/*
+	   * purpose: read the inventory from an input stream
+	   * input:   the stream, in (e.g., stdin)
+	   * result:  returns the populated inventory
+	   */
+	public Inventory readFile(InputStream in)
+	{
+	try
+	{
+	return readFile(new BufferedReader(new InputStreamReader(in)));
+	}
+	catch (Exception E)
+	{
+	System.err.println("ah sorry but " + E);
+	}
+	
+	return null;
+	}
+	}
+
+  * Copy lines
+
+  * Copy permalink
+
+  * View git blame
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/blame/51f40c9cbea8cf26ab6eb4a20316f07696c0d08c/asn4/CLI.java>
+  * Open new issue
+
+    <https://github.com/CS312-Loyola/stuff-cmlindeboom/issues/new>
+
+Jump to Line
+Go
+
+  * © 2017 GitHub, Inc.
+  * Terms <https://github.com/site/terms>
+  * Privacy <https://github.com/site/privacy>
+  * Security <https://github.com/security>
+  * Status <https://status.github.com/>
+  * Help <https://help.github.com/>
+
+<https://github.com/>
+
+  * Contact GitHub <https://github.com/contact>
+  * API <https://developer.github.com/>
+  * Training <https://training.github.com/>
+  * Shop <https://shop.github.com/>
+  * Blog <https://github.com/blog>
+  * About <https://github.com/about>
+
+You can't perform that action at this time.
+You signed in with another tab or window. Reload to refresh your
+session. You signed out in another tab or window. Reload to refresh your
+session.
+
