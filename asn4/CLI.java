@@ -41,9 +41,9 @@ public class CLI     // the command line interface
   {
     CLI cli = new CLI();
     //Inventory inv = cli.readFile("testfile"); // for use with JUnit
-    Inventory inv = cli.readFile(System.in);
+    //Inventory inv = cli.readFile(System.in);
 
-    cli.processCommand(args, inv);
+    cli.processCommand(args);
   }
 
 
@@ -52,7 +52,7 @@ public class CLI     // the command line interface
    * input:   the command switch with arguments, and the current inventory
    * result:  inventory, inv is updates and written to stdout
    */
-  private void processCommand(String [] args, Inventory inv)
+  private void processCommand(String [] args)
   {
     if (args.length == 0)
     {
@@ -63,139 +63,24 @@ public class CLI     // the command line interface
     if ("-d".equals(args[0]))
     {
       if (args.length == 1)
-        
+        System.out.println("test");
       else if ("-t".equals(args[1]) && args.length == 3)
-        
+          System.out.println("test");
+
       else if ("-a".equals(args[1]) && args.length == 3)
-        
+          System.out.println("test");
+
       else
         usage("Invalid display option");
     }
     else if ("-a".equals(args[0]))
     {
-      
+        System.out.println("test");
+
     }
     else
     {
       usage("Bummer I don't know how to `" + args[0] + "'");
     }
-  }
-
-
-  /*
-   * purpose: create a new Stuff based on the mediaKind
-   * input:   the new items data
-   * result:  a new Stuff of the appropriate subclass
-   */
-  private Stuff createStuff(String title, String mediaKind, Double cost, 
-                          String authorOrYear, String property2, 
-                          Boolean isNew)
-  {
-    Stuff it = null;
-    int year = CURRENT_YEAR;
-
-    
-
-    if (mediaKind.equals("AUDIOBOOK"))
-      it = new AudioBook()
-    else if (mediaKind.equals("DVD"))
-      it = new DVD()
-    else if (mediaKind.equals("BOOK"))
-      it = new Book()
-    else if (mediaKind.equals("CD"))
-      it = new CD()
-    else 
-      System.err.println("I'll pretend i didn't see the media kind " + mediaKind);
-
-    return it;  
-  }
-
-
-  /*
-   * purpose: create a new Stuff based on a database record (line from the file)
-   * input:   a comma separated string
-   * result:  a new Stuff of the appropriate subclass
-   */
-  private Stuff parseStuffString(String s)
-  {
-    StringTokenizer tok = new StringTokenizer(s, ";");
-
-  }
-
-
-  /*
-   * purpose: read the inventory from a Java reader
-   * input:   the reader
-   * result:  returns the populated inventory
-   */
-  private Inventory readFile(BufferedReader reader)
-  {
-    Inventory inv = new Inventory();
-    try
-    {
-      String line;
-
-      for(line = reader.readLine(); line != null; line = reader.readLine())
-      {
-        if (line.length() == 0)
-          continue;   // ignore blank lines
-
-        Stuff it = parseStuffString(line);
-        if (it != null) 
-          inv.add(it);
-        else
-          System.err.println("Someone needs to take a look at this! " + line);
-      }
-    }
-    catch (Exception E)
-    {
-      System.err.println("ah sorry but " + E);
-    }
-
-    return inv;
-  }
-
-
-  // an example of the wrapper pattern
-  // 'public' ... really only want to share with the testing code
-  /*
-   * purpose: read the inventory from a disk file
-   * input:   the file name, fileName
-   * result:  returns the populated inventory
-   */
-  public Inventory readFile(String fileName) 
-  {
-    try
-    {
-      return readFile(new BufferedReader(new FileReader(fileName)));
-    }
-    catch (Exception E)
-    {
-      System.err.println("ah sorry but " + E);
-    }
-
-    return null;
-  }
-
-
-  // an example of the wrapper pattern
-  // 'public' ... really only want to share with the testing code
-  /*
-   * purpose: read the inventory from an input stream
-   * input:   the stream, in (e.g., stdin)
-   * result:  returns the populated inventory
-   */
-  public Inventory readFile(InputStream in) 
-  {
-    try
-    {
-      return readFile(new BufferedReader(new InputStreamReader(in)));
-    }
-    catch (Exception E)
-    {
-      System.err.println("ah sorry but " + E);
-    }
-
-    return null;
   }
 }
